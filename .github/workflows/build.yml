@@ -12,7 +12,8 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Set up JDK 17
@@ -28,8 +29,8 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Build
         run: mvn -B verify
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v3.1.2
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v2.1.1
         with:
           name: CoreProtect
-          path: ./build/libs/
+          path: ./build
